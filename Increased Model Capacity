@@ -1,7 +1,9 @@
+"""
 These two NEW plotted graphs illustrate some overfitting, now that we have increased model capacity. 
 There is also a slight difference in the prevalence of variating increase-decrease peaks in validation accuracy/losses, 
 thereby concluding that adding a few convolutional layers was benefitial to the model overall. Training accuracies and losses remain marginally the same.
 To view graphs please visit Colaboratory link.
+"""
 
 model=keras.Sequential(
   [

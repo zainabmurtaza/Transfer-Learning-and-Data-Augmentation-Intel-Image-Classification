@@ -1,0 +1,15 @@
+test_dir = os.path.join(baseDir, testDir)
+
+#ImageDataGenerator reads test images:
+test_datagen = ImageDataGenerator(rescale=1./255)
+test_generator = test_datagen.flow_from_directory(
+    test_dir,
+    target_size= (150, 150),
+    batch_size= BATCH_SIZE,
+    shuffle= False,
+    class_mode= 'sparse')
+
+#Model Accuracy - Transfer Learning version
+    
+test_loss, test_acc = model.evaluate(test_generator, steps=math.ceil(test_generator.samples/BATCH_SIZE))
+print('Test Data Accuracy', test_acc)

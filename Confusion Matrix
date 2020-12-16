@@ -1,0 +1,26 @@
+"""
+The Confusion Matrix illustrates that the model incorrectly classifies categories "glacier" & "mountain" along with "building" & "street". 
+4.7e+02 for glacier is a True Positive (model identified glaciers correctly) and in contrast 4.3e+02 for mountains is a True Negative (they are pictures of glaciers,
+but the model predicted that they aren't). 
+77 pictures were classified as glaciers, but in actuality were not. 52 pictures were of glaciers, but the model predicted that they were of mountains.
+"""
+
+predictions = model.predict(test_generator, steps=math.ceil(test_generator.samples/BATCH_SIZE))
+
+from sklearn.metrics import confusion_matrix
+
+confusion_matrix(test_generator.classes, np.argmax(predictions, axis= 1), list(test_generator.class_indices.values()))
+
+import seaborn as sns
+import matplotlib.pyplot as plt     
+
+plt.figure(figsize=(8, 6))
+ax= plt.subplot()
+sns.heatmap(confusion_matrix(test_generator.classes, np.argmax(predictions, axis= 1), list(test_generator.class_indices.values())), 
+            annot=True, ax = ax)
+
+# Displaying titles, labels, and ticks. 
+ax.set_xlabel('Predicted labels');ax.set_ylabel('True labels')
+ax.set_title('Confusion Matrix')
+ax.xaxis.set_ticklabels(list(test_generator.class_indices.keys())); ax.yaxis.set_ticklabels(list(test_generator.class_indices.keys()))
+

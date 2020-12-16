@@ -1,0 +1,33 @@
+"""
+An excerpt of extended research, as part of the original assignment.
+"""
+
+Awarded first place for Intel Image Classification, this solution used Transfer Learning, Progressive Image Resizing used Keras architecture ResNet50 [1]. 
+Those pre-trained ImageNet weights were trained on a model with images incrementally increasing in size. 
+We used DenseNet121, and did pretty much the same thing (pertaining to default image transformation, batch normalization and learning rate optimizer). 
+Their test accuracy was 94%. However, they also used Places365 Dataset Weights for ResNet50 transfer learning and attained test accuracy of 95%. 
+
+kNN with Embeddings was another approach that they took, 
+and is commonly described as the representation of images via feature vectors which is predominantly the model's last layer output before softmax activation 
+(also known as few-shot learning). 
+
+Test Time Augmentation was also another approach that they used. 
+This method consitutes more or less of the same mechanism as Data Augmentation, the difference being that augmented images are shown to the model several times[2]. 
+The predictions of each corresponding image are then averaged, and that is proclaimed the final guess. 
+
+In terms of test performance, in this assignment we managed to achieve a test accuracy of 90% compared to the maximum achieved by the researched winning model which was 95%. 
+We used DenseNet primarily because each layer in the network received additional input from its preceding layers and henceforth all subsequent layers received said DenseNet feature maps. 
+This results in a network that has a fewer number of channels, resulting in enhanced computing efficiency[3]. 
+
+Additionally (and in contrast to typical ResNet versions), for our model, DenseNet121 ensures that there is no vanishing-gradient, enhances feature propagation, enables the re-use of features, and largely cuts back on the number of parameters[4]. 
+
+The list of approaches mentioned above are only some of the myriad ways that many people have approached the Intel Image Classification problem. 
+
+**References**: 
+1) https://towardsdatascience.com/1st-place-solution-for-intel-scene-classification-challenge-c95cf941f8ed
+
+2) https://towardsdatascience.com/test-time-augmentation-tta-and-how-to-perform-it-with-keras-4ac19b67fb4d
+
+3) https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803
+
+4) https://arxiv.org/abs/1608.06993

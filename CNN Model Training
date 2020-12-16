@@ -1,0 +1,14 @@
+#For Early Stopping Instantiating Callback
+callback = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=10, min_delta=1e-3, restore_best_weights=True)
+
+#Training
+history = model.fit(
+            train_generator,
+            validation_data = validation_generator,
+            steps_per_epoch = math.ceil(train_generator.samples/BATCH_SIZE) ,
+            epochs = 60,
+            validation_steps = math.ceil(validation_generator.samples/BATCH_SIZE),
+            callbacks=callback,
+            verbose = 1)
+
+model.save("intel-baseline.h5")

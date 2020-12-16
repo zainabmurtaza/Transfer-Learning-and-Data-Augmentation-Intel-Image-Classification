@@ -1,0 +1,31 @@
+#COLABORATORY NOTEBOOK to view Learning Curves. Link in README
+# To plot accuracy and loss, we first define the following function:
+def plot_measures(historyObj):
+
+  #Defining Accuracies for Training and Validation:
+  train_acc_CNN = historyObj.history['accuracy']
+  val_acc_CNN = historyObj.history['val_accuracy']
+
+  #Defining Losses for Training and Validation:
+  train_loss_CNN = historyObj.history['loss']
+  val_loss_CNN = historyObj.history['val_loss']
+  epochs = range(1, len(train_loss_CNN) + 1)
+
+  #Accuracy Plots:
+  plt.plot(epochs, train_acc_CNN, 'b', label='Training Accuracies')
+  plt.plot(epochs, val_acc_CNN, 'r', label='Validation Accuracies')
+  plt.title('Training & Validation Accuracies for the model')
+  plt.legend()
+  plt.figure()
+
+  #Loss Plots:
+  plt.plot(epochs, train_loss_CNN, 'b', label='Training Losses')
+  plt.plot(epochs, val_loss_CNN, 'r', label='Validation Losses')
+  plt.title('Training & Validation Losses for the model')
+  plt.legend()
+
+  plt.show()
+
+  return
+  
+  plot_measures(history)

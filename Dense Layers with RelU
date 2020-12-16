@@ -1,3 +1,9 @@
+"""
+The addition of dense layers preceding the output layer aided regularization within the network and reversed overfitting. 
+In comparison to our previous learning curve plots, we see here that the validation accuracy is far lower than training accuracy. Colab notebook for visualization:
+https://colab.research.google.com/drive/15hYxHjqx4hh8ydcdzL0ryZ_C22G20Dlt#scrollTo=SbTrb3JKjcAa
+"""
+
 model=keras.Sequential(
   [
       # First Convolutional Layer & Max Pooling Layer  

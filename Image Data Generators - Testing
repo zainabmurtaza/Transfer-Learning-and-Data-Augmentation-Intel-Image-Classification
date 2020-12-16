@@ -1,0 +1,29 @@
+train_dir = os.path.join(baseDir, trainDir)
+validation_dir = os.path.join(baseDir, valDir)
+
+# Objects named imageDataGenerator for each respective set of data. The rescaling value rescale=1./255 enables image normalization by dividing individual values of every pixel by 255.
+train_datagen = ImageDataGenerator(rescale=1./255)
+val_datagen = ImageDataGenerator(rescale=1./255)
+
+BATCH_SIZE=50
+
+train_generator = train_datagen.flow_from_directory(
+  #Retrieving training data from this directory:
+  train_dir,
+  #Images are resized to 150*150
+  target_size=(150, 150),
+  #Defining minibatch size: 
+  batch_size=BATCH_SIZE,
+  #sparse is used as labels are encoded as integers
+  class_mode='sparse')
+
+
+validation_generator = val_datagen.flow_from_directory(
+    #Directory retrieving train data:
+    validation_dir,
+    #Image resized to 150*150
+    target_size=(150, 150),
+    #Defining minibatch size: 
+    batch_size=BATCH_SIZE,
+    #Used the following as the loss function will pertain as sparse_categorical_crossentropy. the labels are encoded as integer labels
+    class_mode='sparse')

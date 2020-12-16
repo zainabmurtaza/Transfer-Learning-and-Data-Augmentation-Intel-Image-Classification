@@ -1,0 +1,36 @@
+"""
+With the result of fine tuning and being able to train the final convolutional block, a minor but salient improvement in the validation accuracy can be seen.
+We record peaks reaching 92% which is an all-time high value in comparison to our previous model version runs.
+"""
+
+#Convolution Base transforms to True
+conv_base.trainable = True
+
+#Excluding the last nine layers, trainable is set to False. Weights are also frozen for all layers except the last 9.
+for layer in conv_base.layers[:-9]:
+    layer.trainable=False
+
+#For the last 9 layers, trainable is set to True. (the last convolutional block in DENSENET121). Weight is unfrozen for those respective layers.
+for layer in conv_base.layers[-9:]:
+    layer.trainable=True
+    
+    opt = tf.keras.optimizers.Adam(learning_rate=1e-5)
+callback = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=20, min_delta=1e-3, restore_best_weights=True)
+
+
+model.compile(loss="sparse_categorical_crossentropy", metrics=['accuracy'], optimizer=opt)
+
+#Further tuning the model by fitting it for more epochs:
+history = model.fit(
+            train_generator,
+            validation_data = validation_generator,
+            steps_per_epoch = math.ceil(train_generator.samples/BATCH_SIZE) ,
+            epochs = 120,
+            validation_steps = math.ceil(validation_generator.samples/BATCH_SIZE),
+            callbacks=callback,
+            verbose = 1)
+            
+ plot_measures(history)
+ 
+#Save module to Disk
+model.save("intel-finetuned.h5")
